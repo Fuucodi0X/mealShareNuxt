@@ -1,5 +1,5 @@
 <template>
-    <h1>Welcome, {{ id }}</h1>
+  <h1>Welcome, {{ id }}</h1>
 </template>
 
 <script setup>
