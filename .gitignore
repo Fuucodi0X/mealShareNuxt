@@ -24,4 +24,4 @@ logs
 !.env.example
 
 # IDE settings
-.vscode/
+./.vscode/
