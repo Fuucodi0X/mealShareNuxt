@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ["@nuxtjs/tailwindcss","nuxt-icon","@nuxtjs/apollo"],
-
+  plugins: ['~/plugins/auth'],
 
   imports: {
     presets: [

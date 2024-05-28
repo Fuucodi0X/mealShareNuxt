@@ -17,6 +17,7 @@
     "vue-router": "^4.3.2"
   },
   "devDependencies": {
+    "@auth0/auth0-vue": "^2.3.3",
     "@nuxtjs/apollo": "^5.0.0-alpha.14",
     "class-variance-authority": "^0.7.0",
     "nuxt-icon": "^0.6.10",
