@@ -4,19 +4,6 @@ export default defineNuxtConfig({
   modules: ["@nuxtjs/tailwindcss","nuxt-icon","@nuxtjs/apollo"],
   plugins: ['~/plugins/auth'],
 
-  imports: {
-    presets: [
-      {
-        from: 'class-variance-authority',
-        imports: ['cva']
-      },
-      {
-        from: 'tailwind-merge',
-        imports: ['twMerge']
-      }
-    ]
-  },
-
   apollo: {
     clients: {
       default: {
