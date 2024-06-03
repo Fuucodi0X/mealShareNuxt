@@ -12,23 +12,11 @@ const props = defineProps({
   },
 });
 
-// Custom validation for file input using zod
-const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/png'];
-const FILE_SIZE = 1024 * 1024 * 5; // 5MB
-
-const fileSchema = z.instanceof(File)
-  .refine(file => file.size <= FILE_SIZE, {
-    message: 'File is too large, should be less than 5MB',
-  })
-  .refine(file => SUPPORTED_FORMATS.includes(file.type), {
-    message: 'Choose Image, Unsupported file format',
-  });
-
 // Creating vaidation schema
 const recipeValidation = toTypedSchema(
   z.object({
     title: z.string().min(3, "Too short, Must be > 3"),
-    thumbnail: fileSchema,
+    thumbnail: isImage,
     ingerdients: z.string(),
     catagory: z.string(),
     description: z.string().min(10, "Too short, add little description"),
@@ -88,6 +76,36 @@ const uploadFile = async () => {
   }
 };
 
+// Creating recipe in database
+const addRecipe = gql`
+mutation createRecipe($title: String, $description: String, $userId: Int, $catagory: String) {
+    insert_recipes_one(object: {title: $title, description: $description, user_id: $userId, category: $catagory}) {
+      id
+    }
+  }
+`;
+const { mutate:createRecipe } = useMutation(addRecipe);
+
+// Adding ingeredient in the recipe
+const ingredient = gql`
+mutation addIngredient($recipeId: Int, $ingredient: String) {
+  insert_ingredients_one(object: {recipe_id: $recipeId, ingredient: $ingredient}) {
+    id
+  }
+}
+`;
+const { mutate:addIngredient } = useMutation(ingredient)
+
+// Adding thumbnail image on the recipe
+const addRecipeImg = gql`
+mutation addThumbnail($recipeId: Int, $thumbnailImg: String) {
+  insert_recipe_images_one(object: {thumbnail: $thumbnailImg, recipe_id: $recipeId}) {
+    id
+  }
+}
+`;
+const {mutate:addThumbnail} = useMutation(addRecipeImg);
+
 
 // Form Submission Logic
 const onSubmit =  handleSubmit( async (values) => { 
@@ -95,9 +113,10 @@ const onSubmit =  handleSubmit( async (values) => {
   const recipeData = {
     title: title.value,
     description: values.description,
-    userId: 1,
+    userId: 2,
     catagory: values.catagory
   };
+  console.log(recipeData)
   const { data:recipe } = await createRecipe(recipeData);
 
 
