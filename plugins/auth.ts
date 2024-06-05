@@ -6,7 +6,8 @@ export default defineNuxtPlugin((nuxtApp) => {
     clientId: 'kZFjHNOPyqIMtSHMzZnsSwnInY8d2xbd',
     authorizationParams: {
       redirect_uri: 'http://localhost:3000'
-    }
+    },
+    cacheLocation: 'localstorage'
   })
 
   if (process.client) {
