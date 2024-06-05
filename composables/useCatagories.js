@@ -1,4 +1,4 @@
-const catagories = ["All", "Experimental","Fast Food", "Traditional"]
+const catagories = ["Experimental","Fast Food", "Traditional"]
 
 export function useAvalibleCatagories() {
     const data = useState("catagoriess", () => catagories)
@@ -9,6 +9,6 @@ export function useAvalibleCatagories() {
 }
 
 export function useSelectedCatagory() {
-    const data = useState("selected-catagories", () => catagories[0])
+    const data = useState("selected-catagories", () => "All")
     return data
 }
