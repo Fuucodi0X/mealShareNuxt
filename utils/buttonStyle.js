@@ -1,3 +1,5 @@
+import { cva } from "class-variance-authority"
+
 export const buttonStyles = cva(["transition-colors"], {
     variants: {
       variant: {
