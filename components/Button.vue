@@ -1,40 +1,12 @@
 <script setup>
-const buttonStyles = cva(["transition-colors"], {
-  variants: {
-    variant: {
-      default: ["bg-secondary", "hover:bg-secondary-hover"],
-      ghost: ["hover:bg-gray-100"],
-      dark: [
-        "bg-secondary-dark",
-        "hover:bg-secondary-dark-hover",
-        "text-secondary",
-      ],
-    },
-    size: {
-      default: [" rounded", "p-2"],
-      icon: [
-        "rounded-full",
-        "w-12",
-        "h-12",
-        "flex",
-        "items-center",
-        "justify-center",
-        "p-2.5",
-      ],
-    },
-  },
-  defaultVariants: {
-    variant: "default",
-    size: "default",
-  },
-})
-const {variant, size, Class} = defineProps(["variant", "size", "Class"]);
+import { twMerge } from 'tailwind-merge';
+const props = defineProps(["variant", "size", "Class"]);
 </script>
 
 <template>
-    <button
-      :class="twMerge( buttonStyles({ variant, size }), Class)"
+    <div
+      :class="twMerge( buttonStyles({ variant, size }), `cursor-pointer`, Class)"
     >
-    <slot/>
-    </button>
+      <slot/>
+    </div>
 </template>

@@ -7,8 +7,8 @@ import { z } from "zod";
 const currentStep = ref(1);
 const props = defineProps({
   recipeId: {
-    type: String,
-    default: "40"
+    type: Number,
+    default: 40
   },
 });
 
@@ -99,12 +99,12 @@ function submitTo (action = "default") {
   const onSubmit =  handleSubmit( async (values) => { 
     // create recipe
     const stepData = {
-      recipeId: Number(props.recipeId),
+      recipeId: props.recipeId,
       instruction: instruction.value,
       minutes: `${values.time} min`
     };
     const {data:step} = await addStep(stepData)
-    console.log(step)
+    // console.log(step)
     
     if(step) {
       const stepImg = await uploadFile();
@@ -118,7 +118,7 @@ function submitTo (action = "default") {
             currentStep.value++;
             clearForm();
           } 
-          console.log(data)
+          // console.log(data)
         } 
       }
       else{

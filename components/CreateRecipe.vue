@@ -116,7 +116,7 @@ const onSubmit =  handleSubmit( async (values) => {
     userId: 2,
     catagory: values.catagory
   };
-  console.log(recipeData)
+  // console.log(recipeData)
   const { data:recipe } = await createRecipe(recipeData);
 
 
@@ -129,8 +129,8 @@ const onSubmit =  handleSubmit( async (values) => {
     })
   
     const data = await addThumbnail({recipeId,thumbnailImg})
-    console.log("hi")
-    if(data) navigateTo('/recipe/steps')
+    // console.log("hi")
+    if(data) navigateTo(`/steps/${recipeId}`)
   }
   else{
     console.log("Error creating recipe!")
@@ -142,7 +142,7 @@ const onSubmit =  handleSubmit( async (values) => {
 
 <template>
   <div
-    class="m-2 flex flex-col overflow-hidden rounded-md border pb-4 shadow-md sm:w-[400px]"
+    class="m-2 flex flex-col overflow-hidden rounded-md border pb-4 shadow-md sm:w-[400px]  my-4"
   >
   <img class="h-[100px] object-cover" :src="banner" alt="recipes" />
     <form class="flex flex-col">

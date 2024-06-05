@@ -1,5 +1,5 @@
 <template>
-  <div class="flex gap-10 lg:gap-20 justify-between pt-2 mx-4 mb-6 border">
+  <div class="flex gap-10 lg:gap-20 justify-between p-2 mx-4 mb-6 sticky top-0 z-50 bg-white">
     <div class="flex flex-shrink-0 items-center gap-2">
       <Button size="icon" variant="ghost">
         <Icon name="lucide:menu"/>
@@ -10,8 +10,8 @@
     </div>
     <form class="md:flex hidden flex-grow gap-4 justify-center">
       <div class="flex flex-grow max-w-[600px]">
-        <input type="search" placeholder="Search" class="rounded-l-full border border-secondary-border shadow-inner shadow-secondary py-1 px-4 text-lg w-full focus:border-blue-500 outline-none">
-        <Button class="py-2 px-4 rounded-r-full border-secondary-border border border-l-0 flex-shrink-0">
+        <input v-model="searchText" type="text" placeholder="Search" class="rounded-l-full border border-secondary-border shadow-inner shadow-secondary py-1 px-4 text-lg w-full focus:border-blue-500 outline-none">
+        <Button @click="search" class="py-2 px-4 rounded-r-full border-secondary-border border border-l-0 flex-shrink-0">
             <Icon name="lucide:search"/>
         </Button>
       </div>
@@ -26,15 +26,55 @@
       <Button size="icon" variant="ghost" class="md:hidden">
           <Icon name="lucide:mic"/>
       </Button>
-      <Button size="icon" variant="ghost">
-        <Icon name="lucide:upload"/>
-      </Button>
-      <Button size="icon" variant="ghost">
+      <NuxtLink to="/recipe/new">
+        <Button  size="icon" variant="ghost">
+          <Icon name="lucide:upload"/>
+        </Button>
+      </NuxtLink>
+      <Button v-if="isAuthenticated" size="icon" variant="ghost">
         <Icon name="lucide:bell"/>
       </Button>
-      <Button size="icon" variant="ghost">
+      <Button v-if="isAuthenticated" size="icon" variant="ghost">
         <Icon name="lucide:user"/>
+      </Button>
+      <Button v-if="isAuthenticated" size="icon" variant="ghost">
+        <Icon  @click="logout" name="lucide:log-out"/>
       </Button>
     </div>
   </div>
 </template>
+<script lang="ts" setup>
+import { useAuth0 } from '@auth0/auth0-vue'
+
+// Composition API
+const auth0 = process.client ? useAuth0() : undefined
+const isAuthenticated = computed(() => {
+  return auth0?.isAuthenticated.value
+})
+
+const login = () => {
+  auth0?.checkSession()
+  if (!auth0?.isAuthenticated.value) {
+    auth0?.loginWithRedirect({
+      appState: {
+        target: useRoute().path,
+      },
+    })
+  }
+}
+
+const logout = () => {
+  navigateTo('/')
+  auth0?.logout()
+}
+
+// Searching field data
+const props = defineProps({
+  modelValue: String
+})
+const searchText = ref("")
+const emit = defineEmits(['update:modelValue']);
+const search = () => {
+  emit('update:modelValue', searchText.value);
+};
+</script>
