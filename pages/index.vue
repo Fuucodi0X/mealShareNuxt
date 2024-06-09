@@ -1,6 +1,5 @@
 <script setup>
-
-
+// Reactive variables
 const selectedCatagory = useSelectedCatagory()
 const searchParam = ref("")
 const recipes = ref()
@@ -17,6 +16,7 @@ if(selectedCatagory.value = "All"){
   recipes.value = recipesData.value.recipes;
 }
 
+// Search function with postgres functions
 async function getRecipesBySearch(){
   const recipeQuery = gql`
     query recipes($search: String) {
@@ -27,8 +27,9 @@ async function getRecipesBySearch(){
     `;
   const {data:recipesData} = await useAsyncQuery(recipeQuery,{search: searchParam.value})
   recipes.value = recipesData.value.search_recipes;
-  // console.log(searchParam.value,"Hi")
 }
+
+// Get recipes by catagories
 async function getRecipes(){
   if(selectedCatagory.value == "All"){
     const {data:recipesData} = await useAsyncQuery(recipeQuery)
@@ -50,6 +51,7 @@ async function getRecipes(){
   }
 }
 
+// Listen for any change in search value and catagory values
 watch(searchParam,getRecipesBySearch)
 watch(selectedCatagory,getRecipes)
 </script>
