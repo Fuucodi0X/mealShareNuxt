@@ -6,9 +6,12 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      domain: 'dev-huzqyd0je3vnz75v.us.auth0.com',
-      clientId: 'kZFjHNOPyqIMtSHMzZnsSwnInY8d2xbd',
-    }
+      auth0: {
+        domain: 'dev-huzqyd0je3vnz75v.us.auth0.com',
+        clientId: 'kZFjHNOPyqIMtSHMzZnsSwnInY8d2xbd',
+        audience: 'https://api.hasura.com'
+      },
+    },
   },
   
   apollo: {
