@@ -7,7 +7,7 @@ const { id:recipeId } = useRoute().params
 
 <template>
     <div class="flex h-screen items-center justify-center">
-        <Button size="icon" variant="ghost" class="fixed top-3 left-3 m-5 cursor-pointer">
+        <Button size="icon" variant="ghost" class="fixed top-3 left-3 m-5">
             <NuxtLink to="/">
                 <Icon name="lucide:arrow-left"/>
             </NuxtLink>
