@@ -2,9 +2,9 @@
 const ingredients = ref()
 const props = defineProps({
     recipeId:{
-        type: Number,
+        type: String,
         required: true,
-        default: 0
+        default: "0"
     }
 });
 const recipeDetails = gql`
@@ -15,7 +15,7 @@ const recipeDetails = gql`
   }
 `;
 
-const recipeId = props.recipeId;
+const recipeId = Number(props.recipeId);
 const {data} = await useAsyncQuery(recipeDetails, {recipeId})
 const recipeIngredients = data.value.ingredients
 ingredients.value = recipeIngredients

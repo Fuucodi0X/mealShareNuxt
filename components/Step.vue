@@ -1,8 +1,9 @@
 <script setup>
 const props = defineProps({
     recipeId:{
-        type: Number,
-        default: 0
+        type: String,
+        required: true,
+        default: "0"
     }
 })
 // 
@@ -26,7 +27,7 @@ query stepImages($stepId: Int) {
 `;
 const images = ref([]); 
 
-const recipeId = props.recipeId;
+const recipeId = Number(props.recipeId);
 const {data} = await useAsyncQuery(recipeDetails, {recipeId})
 const recipeSteps = data.value.steps
 steps.value = recipeSteps

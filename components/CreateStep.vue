@@ -7,8 +7,9 @@ import { z } from "zod";
 const currentStep = ref(1);
 const props = defineProps({
   recipeId: {
-    type: Number,
-    default: 40
+    type: String,
+    required: true,
+    default: "40"
   },
 });
 
@@ -99,7 +100,7 @@ function submitTo (action = "default") {
   const onSubmit =  handleSubmit( async (values) => { 
     // create recipe
     const stepData = {
-      recipeId: props.recipeId,
+      recipeId: Number(props.recipeId),
       instruction: instruction.value,
       minutes: `${values.time} min`
     };
