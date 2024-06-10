@@ -52,16 +52,6 @@ const isAuthenticated = computed(() => {
   return auth0?.isAuthenticated.value
 })
 
-const login = () => {
-  auth0?.checkSession()
-  if (!auth0?.isAuthenticated.value) {
-    auth0?.loginWithRedirect({
-      appState: {
-        target: useRoute().path,
-      },
-    })
-  }
-}
 
 const logout = () => {
   localStorage.removeItem("hasura-token")
