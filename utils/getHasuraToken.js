@@ -1,4 +1,5 @@
 import { useAuth0 } from "@auth0/auth0-vue";
+import { jwtDecode } from "jwt-decode";
 
 export async function getHasuraToken () {
     const auth0 = process.client ? useAuth0() : undefined;
@@ -12,4 +13,12 @@ export async function getHasuraToken () {
             return ""
         }
     }
+}
+
+export function tokenHasExpired () {
+    if(localStorage.getItem('hasura-token') == null) true;
+    const decodedToken = jwtDecode(localStorage.getItem('hasura-token'));
+    const currentTime = Math.floor(Date.now() / 1000);
+
+    return decodedToken.exp < currentTime;
 }
