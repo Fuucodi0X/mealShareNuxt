@@ -17,8 +17,10 @@ export default defineNuxtConfig({
   apollo: {
     clients: {
       default: {
-        httpEndpoint: 'http://localhost:8080/v1/graphql'
-      }
+        httpEndpoint: 'http://localhost:8080/v1/graphql',
+        tokenStorage: 'localStorage',
+        tokenName: 'hasura-token'
+      },
     },
   },
 })
