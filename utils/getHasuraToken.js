@@ -16,9 +16,14 @@ export async function getHasuraToken () {
 }
 
 export function tokenHasExpired () {
-    if(localStorage.getItem('hasura-token') == null) true;
-    const decodedToken = jwtDecode(localStorage.getItem('hasura-token'));
-    const currentTime = Math.floor(Date.now() / 1000);
-
-    return decodedToken.exp < currentTime;
-}
+    if(process.client) {
+      const token = localStorage.getItem('hasura-token')
+  
+      if(token == null) return true;
+      const decodedToken = jwtDecode(token);
+      const currentTime = Math.floor(Date.now() / 1000);
+      
+      return decodedToken.exp < currentTime;
+    } 
+  }
+  
