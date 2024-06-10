@@ -52,18 +52,19 @@ const isAuthenticated = computed(() => {
   return auth0?.isAuthenticated.value
 })
 
-
 const logout = () => {
   localStorage.removeItem("hasura-token")
   navigateTo('/')
   auth0?.logout()
 }
 
-// Searching field data
+// Search field data
 const props = defineProps({
   modelValue: String
 })
 const searchText = ref("")
+
+// Updates the v-model data(search params) when search button is clicked
 const emit = defineEmits(['update:modelValue']);
 const search = () => {
   emit('update:modelValue', searchText.value);
