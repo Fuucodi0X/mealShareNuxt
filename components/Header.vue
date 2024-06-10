@@ -53,9 +53,11 @@ const isAuthenticated = computed(() => {
 })
 
 const logout = () => {
-  localStorage.removeItem("hasura-token")
-  navigateTo('/')
-  auth0?.logout()
+  if(process.client){
+    localStorage.removeItem("hasura-token")
+    navigateTo('/')
+    auth0?.logout()
+  }
 }
 
 // Search field data
