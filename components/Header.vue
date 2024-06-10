@@ -64,6 +64,7 @@ const login = () => {
 }
 
 const logout = () => {
+  localStorage.removeItem("hasura-token")
   navigateTo('/')
   auth0?.logout()
 }
