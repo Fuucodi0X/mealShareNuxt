@@ -1,6 +1,11 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  devtools: { enabled: true },
+  devtools: { 
+    enabled: true,
+    vscode: {
+      enabled: true
+    }
+  },
   modules: ["@nuxtjs/tailwindcss","nuxt-icon","@nuxtjs/apollo"],
   plugins: ['~/plugins/auth'],
 
