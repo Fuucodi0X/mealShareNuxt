@@ -109,6 +109,8 @@ const {mutate:addThumbnail} = useMutation(addRecipeImg);
 
 // Form Submission Logic
 const onSubmit =  handleSubmit( async (values) => { 
+  // Update token if expired
+  if(tokenHasExpired) getHasuraToken();
   // create recipe
   const recipeData = {
     title: title.value,

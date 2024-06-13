@@ -95,6 +95,8 @@ function clearForm(){
 
 // Submission Logic with destination route
 function submitTo (action = "default") {
+  // Update token if expired
+  if(tokenHasExpired) getHasuraToken();
   
   // Form Submission Logic
   const onSubmit =  handleSubmit( async (values) => { 
