@@ -9,6 +9,7 @@ export default defineNuxtConfig({
       auth0: {
         domain: 'dev-huzqyd0je3vnz75v.us.auth0.com',
         clientId: 'kZFjHNOPyqIMtSHMzZnsSwnInY8d2xbd',
+        redirect_uri: 'http://localhost:3000',
         audience: 'https://api.hasura.com'
       },
     },
